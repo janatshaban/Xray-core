@@ -361,7 +361,9 @@ func (c *TLSConfig) Build() (proto.Message, error) {
 	//if c.AllowInsecure {
 		//return nil, errors.PrintRemovedFeatureError(`"allowInsecure"`, `"pinnedPeerCertSha256"(pcs) and "verifyPeerCertByName"(vcn)`)
 	//}
-	config.AllowInsecure = c.AllowInsecure
+	if c.AllowInsecure {
+		config.InsecureSkipVerify = true
+	}
 
 	
 	if c.PinnedPeerCertSha256 != "" {
