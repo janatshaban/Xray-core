@@ -390,7 +390,7 @@ func (c *Config) GetTLSConfig(opts ...Option) *tls.Config {
 		NextProtos:             slices.Clone(c.NextProtocol),
 		SessionTicketsDisabled: !c.EnableSessionResumption,
 		VerifyPeerCertificate:  randCarrier.verifyPeerCert,
-		InsecureSkipVerify:     true, // <--- ADD THIS LINE HERE
+		InsecureSkipVerify:     os.Getenv("XRAY_ALLOW_INSECURE") == "true",
 	}
 	randCarrier.Config = config
 	if len(c.VerifyPeerCertByName) > 0 {
